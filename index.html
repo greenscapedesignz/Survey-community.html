@@ -65,14 +65,14 @@ textarea{resize:vertical;min-height:80px}
 <div class="screen active" id="s-welcome">
   <div class="hero">
     <div style="font-size:44px;margin-bottom:10px">🌿</div>
-    <h1>Jogupalya Park</h1>
+    <h1>Your Park</h1>
     <p>Community Feedback Form</p>
     <span class="sub">Greenscape Designz · Park Improvement Initiative</span>
   </div>
   <div class="body">
     <div class="card">
       <h2>Help us improve your park</h2>
-      <p>Your feedback will directly shape the redesign of the parks in Jogupalya. Takes about 3 minutes.</p>
+      <p>Your feedback will directly shape the redesign of the parks in Your. Takes about 3 minutes.</p>
     </div>
     <p style="font-size:12px;font-weight:700;color:#1B4332;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Which park are you giving feedback for?</p>
     <div class="park-btn" onclick="selectPark('park1',this)">
@@ -148,7 +148,7 @@ textarea{resize:vertical;min-height:80px}
   <div class="body">
     <div class="card">
       <h2 style="color:#166534;margin-bottom:6px">Response received</h2>
-      <p>Greenscape Designz will review your input as part of the Jogupalya Park improvement project. Your feedback matters.</p>
+      <p>Greenscape Designz will review your input as part of the Your Park improvement project. Your feedback matters.</p>
     </div>
     <div class="card" style="background:#F0FDF4;border-color:#BBF7D0">
       <p style="color:#166534;font-size:13px">📍 <strong>Next step:</strong> Design proposals will be shared with the community before any construction begins.</p>
@@ -354,7 +354,7 @@ function renderSection(idx) {
       var sv = state.answers[q.id] || [];
       q.o.forEach(function(o) {
         var isSel = sv.indexOf(o) !== -1;
-        html += '<div class="check-opt ' + (isSel?"sel":"") + ' chk-' + q.id + '" data-val="' + o + '" onclick="this.classList.toggle('sel')">';
+        html += '<div class="check-opt ' + (isSel?"sel":"") + ' chk-' + q.id + '" data-val="' + o + '" onclick="this.classList.toggle(\'sel\')">';
         html += '<div class="check-box">' + (isSel ? '<svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : "") + '</div>';
         html += '<span class="check-label">' + o + '</span></div>';
       });
