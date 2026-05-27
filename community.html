@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Jogupalya Park – Community Feedback</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#F0FDF4;color:#1E293B;min-height:100vh}
+.screen{display:none;min-height:100vh;padding:0 0 40px}
+.screen.active{display:block}
+.hero{background:#052E16;padding:28px 20px 24px;text-align:center}
+.hero h1{color:#fff;font-size:22px;font-weight:700;margin-bottom:4px}
+.hero p{color:#86EFAC;font-size:13px}
+.hero .sub{color:#6EE7B7;font-size:11px;margin-top:8px;background:rgba(255,255,255,0.08);padding:4px 14px;border-radius:20px;display:inline-block}
+.body{padding:20px 16px}
+.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:12px;border:1px solid #E5E7EB}
+.card h2{font-size:16px;font-weight:700;color:#111827;margin-bottom:4px}
+.card p{font-size:13px;color:#6B7280;line-height:1.6;margin-bottom:14px}
+.park-btn,.role-btn{width:100%;background:#fff;border:2px solid #D1FAE5;border-radius:12px;padding:16px;margin-bottom:10px;text-align:left;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all 0.15s}
+.park-btn:active,.role-btn:active,.park-btn.sel,.role-btn.sel{border-color:#16A34A;background:#F0FDF4}
+.park-btn .icon,.role-btn .icon{font-size:28px;flex-shrink:0}
+.park-btn .txt,.role-btn .txt{flex:1}
+.park-btn .txt strong,.role-btn .txt strong{display:block;font-size:14px;color:#111827}
+.park-btn .txt span,.role-btn .txt span{font-size:11px;color:#9CA3AF;margin-top:2px;display:block}
+.btn{width:100%;background:#16A34A;color:#fff;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px}
+.btn:active{background:#15803D}
+.btn.sec{background:#fff;color:#374151;border:1.5px solid #D1D5DB}
+.btn.sec:active{background:#F9FAFB}
+.progress{height:5px;background:#D1FAE5;border-radius:5px;margin-bottom:20px;overflow:hidden}
+.progress .bar{height:100%;background:#16A34A;border-radius:5px;transition:width 0.4s}
+label.qlabel{display:block;font-size:14px;font-weight:600;color:#374151;margin-bottom:8px}
+select,input[type=text],textarea{width:100%;border:1.5px solid #D1D5DB;border-radius:9px;padding:11px 12px;font-size:14px;color:#111827;background:#fff;outline:none;-webkit-appearance:none}
+textarea{resize:vertical;min-height:80px}
+.qgroup{margin-bottom:20px}
+.check-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;border:1.5px solid #E5E7EB;background:#FAFAFA;margin-bottom:6px;cursor:pointer}
+.check-opt.sel{border-color:#16A34A;background:#F0FDF4}
+.check-box{width:20px;height:20px;border-radius:5px;border:2px solid #D1D5DB;background:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.check-opt.sel .check-box{background:#16A34A;border-color:#16A34A}
+.check-label{font-size:13px;color:#374151}
+.check-opt.sel .check-label{color:#166534;font-weight:500}
+.scale-row{display:flex;gap:8px;align-items:center;margin-top:6px}
+.scale-lbl{font-size:11px;color:#9CA3AF;width:64px;line-height:1.3;flex-shrink:0}
+.scale-lbl.right{text-align:left}
+.scale-lbl.left{text-align:right}
+.scale-btns{display:flex;gap:6px;flex:1;justify-content:center}
+.scale-btn{width:44px;height:44px;border-radius:50%;border:2px solid #D1D5DB;background:#fff;font-size:15px;font-weight:700;color:#6B7280;cursor:pointer;flex-shrink:0;transition:all 0.15s}
+.scale-btn.sel{background:#16A34A;border-color:#16A34A;color:#fff;transform:scale(1.1)}
+.nav-row{display:flex;gap:8px;margin-top:12px}
+.nav-row .btn{flex:1;margin:0}
+.section-title{font-size:13px;font-weight:700;color:#16A34A;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:#DCFCE7;color:#166534;margin-bottom:12px}
+.thankyou{text-align:center;padding:60px 20px}
+.thankyou .icon{font-size:60px;margin-bottom:16px}
+.thankyou h2{font-size:22px;font-weight:700;color:#166534;margin-bottom:8px}
+.thankyou p{font-size:14px;color:#6B7280;line-height:1.7}
+.sticky-bar{background:#fff;border-bottom:1px solid #E5E7EB;padding:11px 16px;position:sticky;top:0;z-index:10}
+.sticky-inner{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.back-btn{color:#9CA3AF;font-size:13px;background:none;border:none;cursor:pointer;padding:0}
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1: WELCOME -->
+<div class="screen active" id="s-welcome">
+  <div class="hero">
+    <div style="font-size:44px;margin-bottom:10px">🌿</div>
+    <h1>Jogupalya Park</h1>
+    <p>Community Feedback Form</p>
+    <span class="sub">Greenscape Designz · Park Improvement Initiative</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <h2>Help us improve your park</h2>
+      <p>Your feedback will directly shape the redesign of the parks in Jogupalya. Takes about 3 minutes.</p>
+    </div>
+    <p style="font-size:12px;font-weight:700;color:#1B4332;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Which park are you giving feedback for?</p>
+    <div class="park-btn" onclick="selectPark('park1',this)">
+      <span class="icon">🌳</span>
+      <div class="txt"><strong>Park 1 – Main Park</strong><span>Larger park serving ~250 residents</span></div>
+    </div>
+    <div class="park-btn" onclick="selectPark('park2',this)">
+      <span class="icon">🌿</span>
+      <div class="txt"><strong>Park 2 – Pocket Park</strong><span>Smaller park, 120×30 ft</span></div>
+    </div>
+    <button class="btn" id="btn-park" style="display:none" onclick="goTo('s-role')">Continue →</button>
+  </div>
+</div>
+
+<!-- SCREEN 2: ROLE -->
+<div class="screen" id="s-role">
+  <div class="hero"><h1>I am a...</h1><p>Select your category to see relevant questions</p></div>
+  <div class="body">
+    <div class="role-btn" onclick="selectRole('resident',this)">
+      <span class="icon">🏘</span>
+      <div class="txt"><strong>Resident / RWA Member</strong><span>General community feedback</span></div>
+    </div>
+    <div class="role-btn" onclick="selectRole('senior',this)">
+      <span class="icon">🧓</span>
+      <div class="txt"><strong>Senior Citizen</strong><span>Comfort, accessibility, daily use</span></div>
+    </div>
+    <div class="role-btn" onclick="selectRole('parent',this)">
+      <span class="icon">👨‍👧</span>
+      <div class="txt"><strong>Parent / Guardian</strong><span>Children's play area and safety</span></div>
+    </div>
+    <div class="role-btn" onclick="selectRole('maintenance',this)">
+      <span class="icon">🔧</span>
+      <div class="txt"><strong>Maintenance Staff</strong><span>Daily operations and challenges</span></div>
+    </div>
+    <div class="nav-row"><button class="btn sec" onclick="goTo('s-welcome')">← Back</button><button class="btn" id="btn-role" style="display:none" onclick="goTo('s-details')">Continue →</button></div>
+  </div>
+</div>
+
+<!-- SCREEN 3: DETAILS -->
+<div class="screen" id="s-details">
+  <div class="sticky-bar">
+    <div class="sticky-inner"><button class="back-btn" onclick="goTo('s-role')">← Back</button><span style="font-size:12px;color:#6B7280">Your Details</span><span style="font-size:12px;color:#9CA3AF">1 / <span id="tot-secs">5</span></span></div>
+    <div class="progress"><div class="bar" id="prog-bar" style="width:10%"></div></div>
+  </div>
+  <div class="body">
+    <div class="tag" id="park-tag">Park 1</div>
+    <h2 style="font-size:18px;font-weight:700;color:#111827;margin-bottom:4px">Your Details</h2>
+    <p style="font-size:13px;color:#6B7280;margin-bottom:18px;line-height:1.6">Optional — helps us follow up if needed.</p>
+    <div class="qgroup">
+      <label class="qlabel">Your Name <span style="color:#9CA3AF;font-weight:400">(optional)</span></label>
+      <input type="text" id="q-name" placeholder="e.g. Anita Sharma">
+    </div>
+    <div class="qgroup">
+      <label class="qlabel">Mobile Number <span style="color:#9CA3AF;font-weight:400">(optional)</span></label>
+      <input type="text" id="q-phone" placeholder="e.g. 98xxxxxxxx">
+    </div>
+    <button class="btn" onclick="nextSection()">Next →</button>
+  </div>
+</div>
+
+<!-- SCREEN 4: QUESTIONS -->
+<div class="screen" id="s-questions">
+  <div class="sticky-bar">
+    <div class="sticky-inner"><button class="back-btn" id="q-back-btn" onclick="prevSection()">← Back</button><span style="font-size:12px;color:#6B7280" id="q-role-lbl">Resident</span><span style="font-size:12px;color:#9CA3AF"><span id="cur-sec">2</span> / <span id="tot-sec2">5</span></span></div>
+    <div class="progress"><div class="bar" id="q-prog" style="width:30%"></div></div>
+  </div>
+  <div class="body" id="q-body"><!-- injected --></div>
+</div>
+
+<!-- SCREEN 5: THANK YOU -->
+<div class="screen" id="s-thanks">
+  <div class="hero" style="padding:40px 20px"><div style="font-size:50px;margin-bottom:10px">✅</div><h1>Thank You!</h1><p>Your feedback has been submitted.</p></div>
+  <div class="body">
+    <div class="card">
+      <h2 style="color:#166534;margin-bottom:6px">Response received</h2>
+      <p>Greenscape Designz will review your input as part of the Jogupalya Park improvement project. Your feedback matters.</p>
+    </div>
+    <div class="card" style="background:#F0FDF4;border-color:#BBF7D0">
+      <p style="color:#166534;font-size:13px">📍 <strong>Next step:</strong> Design proposals will be shared with the community before any construction begins.</p>
+    </div>
+    <button class="btn sec" onclick="location.reload()">Submit another response</button>
+  </div>
+</div>
+
+<script>
+// ── REPLACE THIS URL after deploying your Apps Script ──────────
+var GAS_URL = "https://script.google.com/macros/s/AKfycbzCteD54OBMSK2mNRuv17tc4qH_-JaT5E4xxtJVJIqXDtnMIaKY_XpCVkWmgAop3ZHnKQ/exec";
+// ──────────────────────────────────────────────────────────────
+
+var state = { park: null, role: null, secIdx: 0, answers: {} };
+
+var QUESTIONS = {
+  resident: [
+    { title: "Your Visit Experience", items: [
+      { id:"r_freq", l:"How often do you visit this park?", t:"sel", o:["Daily","3–4 times a week","Once a week","Rarely","Never – safety concerns","Never – poor condition"] },
+      { id:"r_time", l:"When do you usually visit?", t:"mul", o:["Early morning (before 8am)","Morning (8–11am)","Afternoon","Evening (4–7pm)","After dark"] },
+      { id:"r_feel", l:"How does this park currently make you feel?", t:"sc", l1:"Anxious / Unpleasant", l2:"Calm & Pleasant" },
+      { id:"r_belong", l:"Do you feel this park belongs to the community?", t:"sc", l1:"Not at all", l2:"Very much" }
+    ]},
+    { title: "Safety", items: [
+      { id:"r_safe_day", l:"How safe do you feel during the day?", t:"sc", l1:"Very Unsafe", l2:"Very Safe" },
+      { id:"r_safe_night", l:"How safe for women & elderly in the evening?", t:"sc", l1:"Very Unsafe", l2:"Very Safe" },
+      { id:"r_safety_issues", l:"What safety issues have you seen?", t:"mul", o:["Antisocial behaviour","Drinking/substance abuse","Vandalism","Stray dogs","Very poor lighting","Encroachment","No issues"] }
+    ]},
+    { title: "Problems & Needs", items: [
+      { id:"r_problems", l:"What problems do you face in this park?", t:"mul", o:["Broken or missing seating","Overgrown/unsafe trees","Waterlogging","Garbage accumulation","Broken play equipment","No accessibility for elderly","Mosquito breeding","Too hot – no shade","Encroachment"] },
+      { id:"r_clean", l:"Cleanliness and maintenance quality?", t:"sc", l1:"Very Poor", l2:"Excellent" },
+      { id:"r_hot", l:"Is the park too hot in summer?", t:"sel", o:["Yes – unusable in summer","Moderately hot","Reasonably comfortable","Cool – good shade"] }
+    ]},
+    { title: "Your Vision", items: [
+      { id:"r_wants", l:"What would you most like to see added?", t:"mul", o:["Yoga / meditation space","Open gym equipment","Shaded senior seating","Better children play area","Walking / jogging loop","Native plant garden","Butterfly & bird garden","Community gathering space","Water feature","Bicycle parking"] },
+      { id:"r_priority", l:"Your single top priority for this park?", t:"sel", o:["Safety & better lighting","Accessibility for elderly","Better play area for children","More trees & green cover","Cleanliness & maintenance","Community spaces","Rainwater harvesting"] },
+      { id:"r_other", l:"Any other comments or suggestions?", t:"ta", p:"Tell us anything else..." }
+    ]}
+  ],
+  senior: [
+    { title: "Getting to the Park", items: [
+      { id:"se_freq", l:"How often do you visit?", t:"sel", o:["Daily","3–4 times weekly","Once a week","Rarely","Cannot visit – access difficulties"] },
+      { id:"se_enter", l:"How easy is it to enter the park?", t:"sc", l1:"Very Difficult", l2:"Very Easy" },
+      { id:"se_ramp", l:"Is there a step-free ramp at the entrance?", t:"sel", o:["Yes – works well","Yes – but badly designed","No – I need one","I don't need one"] },
+      { id:"se_path", l:"How good is the path surface for walking?", t:"sc", l1:"Dangerous / Very Poor", l2:"Excellent" }
+    ]},
+    { title: "Comfort & Safety", items: [
+      { id:"se_shade", l:"Is there enough shade to sit or walk comfortably?", t:"sc", l1:"No shade – unusable", l2:"Excellent shade" },
+      { id:"se_hot", l:"How is the heat during morning / evening?", t:"sel", o:["Too hot – I avoid it","Uncomfortable","Acceptable","Comfortable"] },
+      { id:"se_safe", l:"How safe do you personally feel in this park?", t:"sc", l1:"Very Unsafe", l2:"Very Safe" },
+      { id:"se_dogs", l:"Are stray dogs a concern for you?", t:"sel", o:["Yes – regularly","Sometimes","Rarely","No"] },
+      { id:"se_lighting", l:"Is evening lighting good enough for safe walking?", t:"sc", l1:"Dangerously dark", l2:"Well lit and safe" }
+    ]},
+    { title: "Your Priorities", items: [
+      { id:"se_seats", l:"Are there enough benches to rest along the path?", t:"sel", o:["Yes – enough","Some but not enough","Very few","None at all"] },
+      { id:"se_wants", l:"What improvements matter most to you?", t:"mul", o:["More benches along the path","More shade trees","Smooth non-slip paths","Accessible ramp at entry","Better evening lighting","Yoga / gentle exercise space","Social gathering area","Cleaner environment","Regular security presence"] },
+      { id:"se_comments", l:"Any other suggestions for seniors?", t:"ta", p:"Tell us what would make this park better for you..." }
+    ]}
+  ],
+  parent: [
+    { title: "Play Area Condition", items: [
+      { id:"p_equip", l:"How is the current play equipment?", t:"sc", l1:"Dangerous – unusable", l2:"Excellent condition" },
+      { id:"p_safe", l:"How safe is the play area for young children?", t:"sc", l1:"Unsafe", l2:"Very Safe" },
+      { id:"p_surface", l:"What is the ground surface under the equipment?", t:"sel", o:["Safe rubber or sand – good","Bare earth – acceptable","Hard concrete – unsafe","No play equipment here"] },
+      { id:"p_fence", l:"Is the play area fenced off from the main path?", t:"sel", o:["Yes – well fenced","Partial fencing","No – safety risk","Not needed here"] }
+    ]},
+    { title: "Environment for Children", items: [
+      { id:"p_shade", l:"Is there shade over the play area?", t:"sc", l1:"No shade – too hot", l2:"Well shaded" },
+      { id:"p_clean", l:"How clean is the play area?", t:"sc", l1:"Very dirty / unsafe", l2:"Clean and hygienic" },
+      { id:"p_dogs", l:"Are stray dogs a problem near the play area?", t:"sel", o:["Yes – frequently","Sometimes","Rarely","No"] }
+    ]},
+    { title: "What You Need", items: [
+      { id:"p_ages", l:"Ages of your children", t:"mul", o:["Under 3 years","3–6 years","6–10 years","10–15 years","15+ years"] },
+      { id:"p_missing", l:"What equipment is missing?", t:"mul", o:["Swings","Slides","Climbing frame","See-saw","Balance equipment","Nature play elements","Sand pit","Cycle track","Splash / water play"] },
+      { id:"p_wants", l:"Top improvements for children", t:"mul", o:["New safe play equipment","Shaded play zone","Nature exploration area","Bicycle / scooter track","Art and learning panels","Fenced safe zone","Better lighting for evening play","Cleaner toilets nearby"] },
+      { id:"p_comments", l:"Any other suggestions?", t:"ta", p:"Tell us what your children need most..." }
+    ]}
+  ],
+  maintenance: [
+    { title: "Daily Operations", items: [
+      { id:"m_problems", l:"What are the most frequent daily problems?", t:"mul", o:["Garbage accumulation","Broken lights","Irrigation pipe failures","Vandalism","Stray animals","Unauthorized entry","Fallen branches","Waterlogging","Play equipment breakage"] },
+      { id:"m_hours", l:"How many hours daily do you spend on maintenance?", t:"sel", o:["Below 2 hours","2–4 hours","4–8 hours","Above 8 hours"] },
+      { id:"m_water", l:"How much water does this park use daily?", t:"sel", o:["Less than 500 litres","500–1000 litres","1000–2000 litres","Above 2000 litres","I don't know"] }
+    ]},
+    { title: "Costs & Failures", items: [
+      { id:"m_cost", l:"Estimated monthly maintenance cost?", t:"sel", o:["Below ₹5,000","₹5,000–₹15,000","₹15,000–₹30,000","Above ₹30,000","I don't know"] },
+      { id:"m_expensive", l:"What costs the most to maintain?", t:"sel", o:["Water supply / irrigation","Electrical / lighting","Labour","Plant replacement","Equipment repair","Garbage removal"] },
+      { id:"m_failures", l:"What fails most often?", t:"mul", o:["Irrigation pipes","Electrical wiring","Play equipment","Seating fixings","Fence posts","Drain channels","Borewell pump"] }
+    ]},
+    { title: "Your Recommendations", items: [
+      { id:"m_design", l:"Design changes that would reduce your workload?", t:"mul", o:["Native / low-water plants","Automated irrigation","Vandal-resistant furniture","Better drainage channels","Root barriers near paths","Enclosed waste bins","Solar lighting","Better fencing to control entry"] },
+      { id:"m_seasonal", l:"Any seasonal issues you have noticed?", t:"ta", p:"e.g. flooding near the east gate in monsoon, stray dogs in winter..." },
+      { id:"m_other", l:"Any other suggestions from your experience?", t:"ta", p:"You see this park every day – what do you think?" }
+    ]}
+  ]
+};
+
+var ROLE_LABELS = { resident: "Resident / RWA", senior: "Senior Citizen", parent: "Parent / Guardian", maintenance: "Maintenance Staff" };
+
+function selectPark(park, el) {
+  state.park = park;
+  document.querySelectorAll(".park-btn").forEach(function(b){ b.classList.remove("sel"); });
+  el.classList.add("sel");
+  document.getElementById("btn-park").style.display = "block";
+}
+
+function selectRole(role, el) {
+  state.role = role;
+  document.querySelectorAll(".role-btn").forEach(function(b){ b.classList.remove("sel"); });
+  el.classList.add("sel");
+  document.getElementById("btn-role").style.display = "flex";
+}
+
+function goTo(id) {
+  document.querySelectorAll(".screen").forEach(function(s){ s.classList.remove("active"); });
+  document.getElementById(id).style.display = "";
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0,0);
+}
+
+function nextSection() {
+  var secs = QUESTIONS[state.role];
+  var totalSecs = secs.length + 2;
+  if (state.secIdx === -1) {
+    state.answers.name = document.getElementById("q-name").value;
+    state.answers.phone = document.getElementById("q-phone").value;
+    state.secIdx = 0;
+    renderSection(0);
+    goTo("s-questions");
+    return;
+  }
+  collectSection(state.secIdx);
+  if (state.secIdx < secs.length - 1) {
+    state.secIdx++;
+    renderSection(state.secIdx);
+    window.scrollTo(0,0);
+  } else {
+    submitForm();
+  }
+}
+
+function prevSection() {
+  if (state.secIdx > 0) {
+    state.secIdx--;
+    renderSection(state.secIdx);
+    window.scrollTo(0,0);
+  } else {
+    goTo("s-details");
+    state.secIdx = -1;
+  }
+}
+
+function collectSection(idx) {
+  var sec = QUESTIONS[state.role][idx];
+  sec.items.forEach(function(q) {
+    if (q.t === "sel") {
+      var el = document.getElementById("q_" + q.id);
+      if (el) state.answers[q.id] = el.value;
+    } else if (q.t === "ta") {
+      var el = document.getElementById("q_" + q.id);
+      if (el) state.answers[q.id] = el.value;
+    } else if (q.t === "mul") {
+      var checked = [];
+      document.querySelectorAll(".chk-" + q.id + ".sel").forEach(function(el) {
+        checked.push(el.dataset.val);
+      });
+      state.answers[q.id] = checked;
+    } else if (q.t === "sc") {
+      var sel = document.querySelector(".sc-" + q.id + ".sel");
+      state.answers[q.id] = sel ? sel.dataset.val : "";
+    }
+  });
+}
+
+function renderSection(idx) {
+  var secs = QUESTIONS[state.role];
+  var sec = secs[idx];
+  var totalSecs = secs.length + 1;
+  var cur = idx + 2;
+  var pct = Math.round((cur / (totalSecs + 1)) * 100);
+  document.getElementById("cur-sec").textContent = cur;
+  document.getElementById("tot-sec2").textContent = totalSecs + 1;
+  document.getElementById("q-prog").style.width = pct + "%";
+  document.getElementById("q-role-lbl").textContent = ROLE_LABELS[state.role] || state.role;
+  document.getElementById("park-tag") && (document.getElementById("park-tag").textContent = state.park === "park1" ? "Park 1 – Main Park" : "Park 2 – Pocket Park");
+
+  var isLast = idx === secs.length - 1;
+  var html = '<div class="tag">' + (state.park === "park1" ? "Park 1 – Main Park" : "Park 2 – Pocket Park") + '</div>';
+  html += '<h2 style="font-size:18px;font-weight:700;color:#111827;margin-bottom:16px">' + sec.title + '</h2>';
+
+  sec.items.forEach(function(q) {
+    html += '<div class="qgroup"><label class="qlabel">' + q.l + '</label>';
+    if (q.t === "sel") {
+      html += '<select id="q_' + q.id + '" style="width:100%;border:1.5px solid #D1D5DB;border-radius:9px;padding:11px 12px;font-size:14px;color:#374151;background:#fff;outline:none;-webkit-appearance:none"><option value="">— Select —</option>';
+      q.o.forEach(function(o) {
+        var sv = state.answers[q.id];
+        html += '<option value="' + o + '" ' + (sv === o ? "selected" : "") + '>' + o + '</option>';
+      });
+      html += '</select>';
+    } else if (q.t === "ta") {
+      html += '<textarea id="q_' + q.id + '" placeholder="' + (q.p||"") + '" style="width:100%;border:1.5px solid #D1D5DB;border-radius:9px;padding:11px 12px;font-size:14px;color:#111827;background:#fff;outline:none;resize:vertical;min-height:80px">' + (state.answers[q.id]||"") + '</textarea>';
+    } else if (q.t === "mul") {
+      var sv = state.answers[q.id] || [];
+      q.o.forEach(function(o) {
+        var isSel = sv.indexOf(o) !== -1;
+        html += '<div class="check-opt ' + (isSel?"sel":"") + ' chk-' + q.id + '" data-val="' + o + '" onclick="this.classList.toggle('sel')">';
+        html += '<div class="check-box">' + (isSel ? '<svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : "") + '</div>';
+        html += '<span class="check-label">' + o + '</span></div>';
+      });
+    } else if (q.t === "sc") {
+      var sv = state.answers[q.id] ? parseInt(state.answers[q.id]) : 0;
+      html += '<div class="scale-row"><span class="scale-lbl left">' + q.l1 + '</span><div class="scale-btns">';
+      for (var n=1;n<=5;n++) {
+        html += '<button class="scale-btn sc-' + q.id + ' ' + (sv===n?"sel":"") + '" data-val="' + n + '" onclick="selectScale(this,\'' + q.id + '\')">' + n + '</button>';
+      }
+      html += '</div><span class="scale-lbl right">' + q.l2 + '</span></div>';
+    }
+    html += '</div>';
+  });
+
+  html += '<div class="nav-row"><button class="btn sec" onclick="prevSection()">← Back</button><button class="btn" onclick="nextSection()">' + (isLast ? "Submit Feedback ✓" : "Next →") + '</button></div>';
+  document.getElementById("q-body").innerHTML = html;
+}
+
+function selectScale(el, id) {
+  document.querySelectorAll(".sc-" + id).forEach(function(b){ b.classList.remove("sel"); });
+  el.classList.add("sel");
+}
+
+function submitForm() {
+  collectSection(state.secIdx);
+  var payload = Object.assign({}, state.answers, {
+    park: state.park,
+    role: state.role,
+    form_type: "community"
+  });
+  goTo("s-thanks");
+  if (GAS_URL !== "YOUR_GAS_WEBAPP_URL_HERE") {
+    fetch(GAS_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(payload)
+    }).catch(function(){});
+  }
+}
+
+// Init details screen
+document.getElementById("s-details").querySelector("button.btn").addEventListener("click", function(){ state.secIdx = -1; nextSection(); }, false);
+document.getElementById("s-details").querySelector("button.btn").onclick = function(){ state.secIdx = -1; nextSection(); };
+</script>
+</body>
+</html>
